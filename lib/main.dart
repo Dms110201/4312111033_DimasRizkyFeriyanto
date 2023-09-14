@@ -23,34 +23,19 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pratiku3'),
+        title: const Text('Pratikum3'),
       ),
-        body: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.access_alarm),
-                        Text('Alarm')
-                        ],
-                        ),
-                        Column(
-                        children: <Widget>[
-                        Icon(Icons.phone),
-                        Text('Phone')
-                        ],
-                        ),
-                      Column(
-                    children: <Widget>[
-                  Icon(Icons.book),
-                Text('Book')
-              ],
-            ),
-          ],
-        ),
-      ),
+      body: Container(
+        padding: const EdgeInsets.all(32.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0),
+                  decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.purple),// color: Colors.purple,
+              child: const Text('Haiii', style: TextStyle(color: Colors.white,
+                  fontSize: 20.0
+         ),
+        )
+      )
     );
   }
 }
