@@ -25,16 +25,12 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pratikum3'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(32.0),
-            margin: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0),
-                  decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.purple),// color: Colors.purple,
-              child: const Text('Haiii', style: TextStyle(color: Colors.white,
-                  fontSize: 20.0
-         ),
-        )
+      body: const Column(
+        children: <Widget>[
+          Text("A", style: TextStyle(fontSize: 30.0),),
+          SizedBox(height: 20.0,),
+          Text("B", style: TextStyle(fontSize: 30.0),)
+        ],
       )
     );
   }
