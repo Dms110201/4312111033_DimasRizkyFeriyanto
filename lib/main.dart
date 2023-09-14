@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Horizontal Container Demo',
+      title: 'Vertical Container Demo',
       home: MyHomePage(),
     );
   }
@@ -23,27 +23,27 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Horizontal Container Demo'),
+        title: const Text('Vertical Container Demo'),
       ),
       body: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
               onPressed: () {},
               child: const Text('Button 1'),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
               child: const Text('Button 2'),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
               child: const Text('Button 3'),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
               child: const Text('Button 4'),
