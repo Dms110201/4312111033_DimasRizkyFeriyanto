@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,42 +10,69 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pratikum3',
-      home: MyHomePage(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const Praktikum3(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class Praktikum3 extends StatelessWidget {
+  const Praktikum3 ({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pratikum3'),
+    return Scaffold (
+      appBar: AppBar(title: const Text('Pratikum3') ),
+      body: Container(
+        color: Colors.red,
+        child: MaterialButton(
+          textColor: Colors.white,
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return GiffyDialog.image(
+                      Image.asset(
+                        'assets/images/gambarbergerak.gif',
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                      title: const Text(
+                        'Men Wearing Jakets',
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.w100),
+                      ),
+                      content: const Text(
+                        'This is a men wearning jakets',
+                        textAlign: TextAlign.center,
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'CANCEL'),
+                          child: const Text(
+                            'CANCEL',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text(
+                            'OK',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ]);
+                });
+          },
+          child: const Text("Alert Dialog"),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(hintText: "Username"),
-            ),TextFormField(
-              obscureText:  true,
-              decoration: const InputDecoration(hintText: "Username"),
-            ),
-            const SizedBox(height: 10,),
-            ElevatedButton(child: const Text("login"),
-            onPressed: () {}
-            )
-          ],
-        )),
-      ),
-      );
+    );
   }
 }
