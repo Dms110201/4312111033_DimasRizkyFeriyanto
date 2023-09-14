@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Vertical Container Demo',
+      title: 'Kombinasi baris & kolom',
       home: MyHomePage(),
     );
   }
@@ -23,30 +23,55 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vertical Container Demo'),
+        title: const Text('Kombinasi baris & kolom'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Button 1'),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[],
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Button 2'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 1'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 2'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 3'),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Button 3'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Button 4'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 4'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 5'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Button 6'),
+                ),
+              ],
             ),
           ],
         ),
