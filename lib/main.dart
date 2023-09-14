@@ -25,13 +25,19 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pratikum3'),
       ),
-      body: const Column(
+      body: Column(
         children: <Widget>[
-          Text("A", style: TextStyle(fontSize: 30.0),),
-          SizedBox(height: 20.0,),
-          Text("B", style: TextStyle(fontSize: 30.0),)
+          MaterialButton(color: Colors.amber,
+          child:const Text("Rised Button"), onPressed: () {}
+          ),
+           MaterialButton(color: Colors.lime,
+          child:const Text("Material Button"), onPressed: () {}
+          ),
+          MaterialButton(color: Colors.lightGreenAccent,
+          child:const Text("Flat Button"), onPressed: () {}
+          )
         ],
-      )
-    );
+      ),
+      );
   }
 }
