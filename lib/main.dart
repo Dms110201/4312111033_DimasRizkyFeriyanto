@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
-
-
-void main() {
-  runApp(const MainApp());
-}
- class MainApp extends StatefulWidget {
-  const MainApp({super.key});
-
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("InkWell"),),
-          body: Center(
-            child: Ink(
-            decoration: BoxDecoration(color: Colors.black,
-            borderRadius: BorderRadius.circular(24),
-            ),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(24),
-              onTap: () => setState(() {}),
-              child: Container(
-                width: 100.0,
-                height: 100.0,
-                alignment: Alignment.center,
-                child: const Text('InkWell',
-                style: TextStyle(color: Colors.white, fontSize: 24),),
-              ),)
-            ),
-          ),
+import 'package:tugasmingguan/ui_view/PageTwo.dart';
+void main() => runApp(MyApp());
+class MyApp extends StatelessWidget {
+// This widget is the root of your application.
+@override
+    Widget build(BuildContext context) {
+        return MaterialApp(
+            title: 'Flutter Demo',
+          theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+        home: MyHomePage(),
+            );
+          }
+        }
+    class MyHomePage extends StatelessWidget {
+          @override
+              Widget build(BuildContext context) {
+                return Scaffold(
+                  appBar: AppBar(
+                        title: Text("Navigator"),
+                    ),
+                        body: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              MaterialButton(
+                                color: Colors.yellow,
+                          child: Text("Page 2"),
+                        onPressed: () {
+                      // dibuat berikutnya
+                    Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageTwo()
+                )
+              );
+            },
+          ),
+        ],
+      )
     );
   }
 }
