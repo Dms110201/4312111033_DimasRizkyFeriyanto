@@ -1,56 +1,79 @@
-import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const VideoPlayerApp());
 
-class MyApp extends StatelessWidget {
+class VideoPlayerApp extends StatelessWidget {
+  const VideoPlayerApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: AccessCameraPage(),
+    return const MaterialApp(
+      title: 'Video Player Demo',
+      home: VideoPlayerScreen(),
     );
   }
 }
 
-class AccessCameraPage extends StatefulWidget {
+class VideoPlayerScreen extends StatefulWidget {
+  const VideoPlayerScreen({super.key});
   @override
-  _AccessCameraPageState createState() => _AccessCameraPageState();
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
-class _AccessCameraPageState extends State<AccessCameraPage> {
-  File? _image;
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    );
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+  }
 
-  Future<void> openCamera() async {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = File(pickedImage!.path);
-    });
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Access Camera"),
+        title: const Text('Butterfly Video'),
       ),
-      body: Container(
-        child: Center(
-          child: _image == null ? Text("No Image") : Image.file(_image!),
-        ),
+      body: FutureBuilder(
+        future: _initializeVideoPlayerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add_a_photo,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.green,
         onPressed: () {
-          openCamera();
+          setState(() {
+            if (_controller.value.isPlaying) {
+              _controller.pause();
+            } else {
+              _controller.play();
+            }
+          });
         },
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        ),
       ),
     );
   }
