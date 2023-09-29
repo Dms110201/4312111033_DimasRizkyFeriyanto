@@ -1,75 +1,57 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:tugasmingguan/ui_view/login.dart';
-import 'package:tugasmingguan/ui_view/signup.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
-// This widget is the root of your application.
-@override
-    Widget build(BuildContext context) {
-        return MaterialApp(
-            title: 'Login Register',
-            theme: ThemeData(
-              primarySwatch: Colors.blue
-            ),
-            home: HomePage(),
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: AccessCameraPage(),
     );
   }
 }
 
+class AccessCameraPage extends StatefulWidget {
+  @override
+  _AccessCameraPageState createState() => _AccessCameraPageState();
+}
 
-class HomePage extends StatelessWidget {
-  
+class _AccessCameraPageState extends State<AccessCameraPage> {
+  File? _image;
+
+  Future<void> openCamera() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.android, color: Colors.white,size: 45,),
-            SizedBox(height: 200,),
-            Text("Welcome to Flutter",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22),),
-              SizedBox(height: 10,),
-              Text("Get real-time updates about what",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18),),
-                Text("maters to you",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18),),
-                  SizedBox(height: 20,),
-                  MaterialButton(
-                    minWidth: 210,
-                        color: Colors.white,
-                          textColor: Colors.lightBlue,
-                          child: Text("Sign up",
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                      fontSize: 18),),
-                    onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder:
-                      (context) => SignUp()));
-                    },),
-                    TextButton(child: Text("Log in",
-                      style: TextStyle(color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                          fontSize: 18),),
-                      onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder:
-                        (context) => Login()));
-                    },
-                    )
-          ],
+      appBar: AppBar(
+        title: Text("Access Camera"),
+      ),
+      body: Container(
+        child: Center(
+          child: _image == null ? Text("No Image") : Image.file(_image!),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add_a_photo,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.green,
+        onPressed: () {
+          openCamera();
+        },
       ),
     );
   }
 }
-
-
