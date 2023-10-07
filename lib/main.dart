@@ -1,79 +1,61 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void main() => runApp(const VideoPlayerApp());
+void main() {
+  runApp(const MyApp());
+}
 
-class VideoPlayerApp extends StatelessWidget {
-  const VideoPlayerApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Video Player Demo',
-      home: VideoPlayerScreen(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const testtoats(),
     );
   }
 }
 
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+class testtoats extends StatefulWidget {
+  const testtoats({super.key});
+
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<testtoats> createState() => _testtoatsState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    );
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _testtoatsState extends State<testtoats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Butterfly Video'),
+        title: Text("Toast"),
       ),
-      body: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            if (_controller.value.isPlaying) {
-              _controller.pause();
-            } else {
-              _controller.play();
-            }
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Langkah 3
+              Fluttertoast.showToast(
+                msg: "THE toast message",
+                toastLength: Toast.LENGTH_SHORT,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            },
+            child: const Text(
+              'Show Toast Message',
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
+        ],
       ),
     );
   }
